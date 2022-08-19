@@ -40,9 +40,12 @@ const ParentPost = () => {
     }
 
     const deleteThePost = (e) => {
-        allPosts.splice(allPosts.length - parseInt(e.target.value))
-        setAllPosts(allPosts)
+        let posts = allPosts.filter(post =>  post.id !== parseInt(e.target.value) )
+        setAllPosts(posts)
     }
+
+    useEffect(() => {}, [allPosts])
+
 
     return (
         <div className=''>

@@ -2,17 +2,15 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const PostCards = (props) => {
+    const [currentUser] = useState(props.currentUser)
     const navigate = useNavigate()
-    const deletePost = (e) => {
-        console.log(e.target.value)
-    }
     const openComments = (e) => {
         const el = props.allPosts.find((elem) => {
             if (elem.id === parseInt(e.target.value)){
                 return elem
             }
         })
-        navigate('/posts/:id/comments', {state: el})
+        navigate('/posts/' + el.id + '/comments', {state: el, currentUser})
     }
     return (
         <div className='justify-content-center'>

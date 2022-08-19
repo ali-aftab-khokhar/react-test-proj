@@ -2,7 +2,6 @@ import axios from 'axios'
 import React, { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import HeaderLoggedIn from '../Headers/HeaderLoggedIn'
-import SpecificPost from './SpecificPost'
 
 const ParentComments = () => {
     const location = useLocation()
@@ -11,10 +10,11 @@ const ParentComments = () => {
     const commentRef = useRef()
     console.log(allComments)
     useEffect(() => {
+        console.log(location)
         const fetchData = async () => {
             await axios.get('https://jsonplaceholder.typicode.com/posts/' + location.state.id + '/comments/')
                 .then((response) => {
-                    setAllComments(response.data)
+                    setAllComments(response.data.reverse())
                 })
                 .catch(() => console.log("There must be some issue. Data didn't retrieve."), [])
         }
@@ -29,10 +29,6 @@ const ParentComments = () => {
         fetchDataForCount()
     }, [])
 
-    useEffect(() => {}, [allComments])
-
-    console.log(allCommentsCount, "count")
-
     const addNewComment = () => {
         const comment = {
             name: commentRef.current.value,
@@ -42,6 +38,7 @@ const ParentComments = () => {
         allComments.push(comment)
         setAllComments(allComments)
         setAllCommentsCount(allCommentsCount+1)
+        commentRef.current.value = ''
     }
 
     return (
