@@ -6,7 +6,9 @@ import SignUpForm from './SignUpForm'
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom'
 
-const ParentLoginSignUp = () => {
+const ParentLoginSignUp = (props) => {
+    const [postsData, setPostsData] = useState(props.postsData)
+    console.log(props.commentsData)
     const navigate = useNavigate()
     const [allUsers, setAllUsers] = useState([])
     const [isLogggedIn, setIsLoggedIn] = useState([])
@@ -52,12 +54,13 @@ const ParentLoginSignUp = () => {
         console.log(isLogggedIn)
         if (isLogggedIn.length !== 0) {
             toast.success("Logged In")
-            navigate('/posts', {state: isLogggedIn})
+            navigate('/posts', {state: {isLoggedIn: isLogggedIn, postsData: props.postsData, commentsData: props.commentsData}})
         }
         else{
             toast.error("Wrong username or password")
         }
     }
+
     return (
         <div>
             <div>

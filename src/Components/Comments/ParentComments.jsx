@@ -5,20 +5,12 @@ import HeaderLoggedIn from '../Headers/HeaderLoggedIn'
 
 const ParentComments = () => {
     const location = useLocation()
-    const [allComments, setAllComments] = useState()
+    const [commentsData, setCommentsData] = useState(location.state.commentsData)
+    console.log(location.state.el, 'comments data')
+    const [allComments, setAllComments] = useState(location.state.commentsData)
     const [allCommentsCount, setAllCommentsCount] = useState()
     const commentRef = useRef()
-    console.log(allComments)
     useEffect(() => {
-        console.log(location)
-        const fetchData = async () => {
-            await axios.get('https://jsonplaceholder.typicode.com/posts/' + location.state.id + '/comments/')
-                .then((response) => {
-                    setAllComments(response.data.reverse())
-                })
-                .catch(() => console.log("There must be some issue. Data didn't retrieve."), [])
-        }
-        fetchData()
         const fetchDataForCount = async () => {
             await axios.get('https://jsonplaceholder.typicode.com/comments/')
                 .then((response) => {
@@ -27,17 +19,17 @@ const ParentComments = () => {
                 .catch(() => console.log("There must be some issue. Data didn't retrieve."), [])
         }
         fetchDataForCount()
-    }, [])
+    }, [location])
 
     const addNewComment = () => {
         const comment = {
             name: commentRef.current.value,
-            postId: location.state.id,
-            id: allCommentsCount + 1,
+            postId: location.state.el.id,
+            id: commentsData.length + 1,
         }
-        allComments.push(comment)
-        setAllComments(allComments)
-        setAllCommentsCount(allCommentsCount+1)
+        commentsData.push(comment)
+        setCommentsData(commentsData)
+        setAllCommentsCount(commentsData.length + 1)
         commentRef.current.value = ''
     }
 
@@ -48,29 +40,35 @@ const ParentComments = () => {
                 <div className="card mb-3">
                     <h1 className='p-3'>Post</h1>
                     <div className="card-body pb-5">
-                        <h5 className="card-title">{location.state.title}</h5>
-                        <p className="card-text">{location.state.body}</p>
+                        <h5 className="card-title">{location.state.el.title}</h5>
+                        <p className="card-text">{location.state.el.body}</p>
                     </div>
                     <div className='pb-5'>
                         <h2 className='p-4'>Comments</h2>
                         {
-                            allComments ? allComments.map((comment) => {
-                                return (<div className='w-50 pt-3 ps-5 bg-light ,b-2'>
+                            commentsData ? commentsData.map((comment) => {
+                                if (comment.postId === location.state.el.id){
+                                    return (<div className='w-50 pt-3 ps-5 bg-light ,b-2' key={comment.id}>
                                     {comment.name}
                                 </div>)
+                                }   
                             }) : <div className='ps-5'> Loading... </div>
                         }
                     </div>
-                    <div className='mb-4 w-75 ms-4'>
-                        <div class="w-75 mb-3 ms-4">
-                            <div class="input-group">
-                                <input type="text" class="form-control" ref={commentRef} name="name" placeholder="Add new comment" />
-                                <div class="input-group-prepend">
-                                    <button class="input-group-text" id="inputGroupPrepend2" onClick={addNewComment}>Publish Comment</button>
+                    {
+                        location.state.el ?
+                            <div className='mb-4 w-75 ms-4'>
+                                <div className="w-75 mb-3 ms-4">
+                                    <div className="input-group">
+                                        <input type="text" className="form-control" ref={commentRef} name="name" placeholder="Add new comment" />
+                                        <div className="input-group-prepend">
+                                            <button className="input-group-text" id="inputGroupPrepend2" onClick={addNewComment}>Publish Comment</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                            : null
+                    }
                 </div>
             </div>
         </div>

@@ -6,21 +6,11 @@ import { useLocation } from 'react-router-dom'
 
 const ParentPost = () => {
     const location = useLocation()
-    const [currentUser] = useState(location.state[0])
-    const [allPosts, setAllPosts] = useState([])
+    const [currentUser] = useState(location.state.isLoggedIn[0])
     const [addNewPost, setAddNewPost] = useState(false)
+    const [allPosts, setAllPosts] = useState(location.state.postsData)
     const postTitleRef = useRef()
     const postBodyRef = useRef()
-    useEffect(() => {
-        const fetchData = async () => {
-            await axios.get('https://jsonplaceholder.typicode.com/posts')
-                .then((response) => {
-                    setAllPosts(response.data)
-                })
-                .catch(() => console.log("There must be some issue. Data didn't retrieve."), [])
-        }
-        fetchData()
-    }, [])
 
     const openOrCloseModal = () => {
         setAddNewPost(!addNewPost)
@@ -32,7 +22,7 @@ const ParentPost = () => {
             title: postTitleRef.current.value,
             body: postBodyRef.current.value,
             id: allPosts.length + 1,
-            userId: 0
+            userId: currentUser.id
         }
         allPosts.push(newPost)
         setAllPosts(allPosts)
@@ -40,6 +30,7 @@ const ParentPost = () => {
     }
 
     const deleteThePost = (e) => {
+        console.log(e)
         let posts = allPosts.filter(post =>  post.id !== parseInt(e.target.value) )
         setAllPosts(posts)
     }
@@ -78,7 +69,7 @@ const ParentPost = () => {
             }
 
             <div className='w-100 p-5 d-flex align-items-center justify-content-center'>
-                <PostCards allPosts={allPosts} currentUser={currentUser} deleteThePost={deleteThePost}/>
+                <PostCards allPosts={allPosts} currentUser={currentUser} deleteThePost={deleteThePost} commentsData={location.state.commentsData}/>
             </div>
         </div>
     )

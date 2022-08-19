@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 const PostCards = (props) => {
     const [currentUser] = useState(props.currentUser)
+    console.log(props.commentsData)
     const navigate = useNavigate()
     const openComments = (e) => {
         const el = props.allPosts.find((elem) => {
@@ -10,14 +11,14 @@ const PostCards = (props) => {
                 return elem
             }
         })
-        navigate('/posts/' + el.id + '/comments', {state: el, currentUser})
+        navigate('/posts/' + el.id + '/comments', {state: {el: el, currentUser: currentUser, commentsData: props.commentsData}})
     }
     return (
         <div className='justify-content-center'>
             {
                 props.allPosts.reverse().map((post) => {
                     return (
-                        <div className="card mb-3" key={post.id}>
+                        <div className="card mb-3">
                             <div className="card-body">
                                 <h5 className="card-title">{post.title}</h5>
                                 <p className="card-text">{post.body}</p>
