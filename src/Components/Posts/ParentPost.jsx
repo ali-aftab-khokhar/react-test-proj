@@ -27,14 +27,12 @@ const ParentPost = () => {
             userId: currentUser.id
         }
         context.postsData.push(newPost)
-        console.log(context.postsData)
         setAddNewPost(false)
     }
 
     const deleteThePost = (e) => {
         const post = context.postsData.filter(post =>  post.id !== parseInt(e.target.value) )
         context.postsData = post
-        console.log(context.postsData)
         setPostDelete(!postDelete)
         
     }

@@ -25,7 +25,6 @@ const PostCards = (props) => {
         setActivePostID(post)
     }
     const saveEdits = (e) => {
-        console.log(e.target.value)
         allPosts.forEach((post) => {
             if(post.id === parseInt(e.target.value)){
                 post.title = postTitleRef.current.value

@@ -1,7 +1,6 @@
 import React, { useRef } from 'react'
 
 const SignUpForm = (props) => {
-    console.log()
     var newSignUp = {}
     const fullnameRef = useRef()
     const usernameRef = useRef()

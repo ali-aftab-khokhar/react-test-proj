@@ -23,20 +23,19 @@ const ParentLoginSignUp = (props) => {
         }
         fetchData()
     }, [])
-    useEffect(() => {}, [context.usersData])
+    useEffect(() => { }, [context.usersData])
     useEffect(() => {
         setAllUsers(allUsers)
     }, [allUsers])
     useEffect(() => {
         setIsLoggedIn(isLogggedIn)
-        console.log(isLogggedIn)
     }, [isLogggedIn])
     allUsers.map((elem) => elem.password = "user")
 
     const addNewUser = (user) => {
         user.id = allUsers.length + 1
         allUsers.forEach((elem) => {
-            if (elem.username === user.username){
+            if (elem.username === user.username) {
                 return toast.error("Username already exists.")
             }
         })
@@ -47,19 +46,16 @@ const ParentLoginSignUp = (props) => {
     }
 
     const existingUserOrNot = (username, password) => {
-        console.log(allUsers)
         allUsers.forEach(elem => {
             if (elem.username === username && elem.password === password) {
                 isLogggedIn.push(elem)
-                console.log(elem)
             }
         });
-        console.log(isLogggedIn)
         if (isLogggedIn.length !== 0) {
             toast.success("Logged In")
-            navigate('/posts', {state: {isLoggedIn: isLogggedIn, postsData: props.postsData, commentsData: props.commentsData}})
+            navigate('/posts', { state: { isLoggedIn: isLogggedIn, postsData: props.postsData, commentsData: props.commentsData } })
         }
-        else{
+        else {
             toast.error("Wrong username or password")
         }
     }

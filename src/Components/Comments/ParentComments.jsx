@@ -12,7 +12,6 @@ const ParentComments = () => {
     const commentRef = useRef()
 
     const addNewComment = () => {
-        console.log(context.commentsData)
         const comment = {
             name: commentRef.current.value,
             postId: location.state.el.id,
