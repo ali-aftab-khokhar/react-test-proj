@@ -1,14 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react'
-import axios from 'axios'
+import React, { useEffect, useRef, useState, useContext } from 'react'
 import HeaderLoggedIn from '../Headers/HeaderLoggedIn'
 import PostCards from './PostCards'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import ContextAPI from '../../Context/ContextAPI'
 
 const ParentPost = () => {
+    const context = useContext(ContextAPI)
+    const navigate = useNavigate()
     const location = useLocation()
+    const [postDelete, setPostDelete] = useState(false)
     const [currentUser] = useState(location.state.isLoggedIn[0])
     const [addNewPost, setAddNewPost] = useState(false)
-    const [allPosts, setAllPosts] = useState(location.state.postsData)
     const postTitleRef = useRef()
     const postBodyRef = useRef()
 
@@ -21,26 +23,35 @@ const ParentPost = () => {
         const newPost = {
             title: postTitleRef.current.value,
             body: postBodyRef.current.value,
-            id: allPosts.length + 1,
+            id: context.postsData.length + 1,
             userId: currentUser.id
         }
-        allPosts.push(newPost)
-        setAllPosts(allPosts)
+        context.postsData.push(newPost)
+        console.log(context.postsData)
         setAddNewPost(false)
     }
 
     const deleteThePost = (e) => {
-        let posts = allPosts.filter(post =>  post.id !== parseInt(e.target.value) )
-        setAllPosts(posts)
+        const post = context.postsData.filter(post =>  post.id !== parseInt(e.target.value) )
+        context.postsData = post
+        console.log(context.postsData)
+        setPostDelete(!postDelete)
+        
     }
 
-    useEffect(() => {}, [allPosts])
+    useEffect(() => {}, [context.postsData])
 
+    const logoutHandle = () => {
+        navigate("/")
+    }
 
     return (
         <div className=''>
             <div>
                 <HeaderLoggedIn header="Posts" />
+            </div>
+            <div className='p-4'>
+                <button className='btn btn-dark' onClick={logoutHandle}>Logout</button>
             </div>
             <div className='ms-2'>
                 <button className='btn ms-5 btn-outline-dark mt-5 pt-3 ps-5 pe-5' onClick={openOrCloseModal} >
@@ -68,7 +79,7 @@ const ParentPost = () => {
             }
 
             <div className='w-100 p-5 d-flex align-items-center justify-content-center'>
-                <PostCards allPosts={allPosts} currentUser={currentUser} deleteThePost={deleteThePost} commentsData={location.state.commentsData}/>
+                <PostCards allPosts={context.postsData} currentUser={currentUser} deleteThePost={deleteThePost} commentsData={location.state.commentsData}/>
             </div>
         </div>
     )

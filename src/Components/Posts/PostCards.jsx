@@ -1,7 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import ContextAPI from '../../Context/ContextAPI'
 
 const PostCards = (props) => {
+    const context = useContext(ContextAPI)
     const [currentUser] = useState(props.currentUser)
     const [activePostID, setActivePostID] = useState(null)
     const navigate = useNavigate()
@@ -37,12 +39,13 @@ const PostCards = (props) => {
     useEffect(() => {
         setAllPosts(props.allPosts)
     })
+    useEffect(() => {}, [context.postsData])
 
 
     return (
         <div className='justify-content-center'>
             {
-                allPosts.reverse().map((post) => {
+                context.postsData.reverse().map((post) => {
                     return (
                         <div className="card mb-3" key={post.id}>
                             <div className="card-body">

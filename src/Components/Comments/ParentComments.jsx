@@ -1,8 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState, useContext } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import HeaderLoggedIn from '../Headers/HeaderLoggedIn'
+import ContextAPI from '../../Context/ContextAPI'
 
 const ParentComments = () => {
+    const context = useContext(ContextAPI)
     const location = useLocation()
     const navigate = useNavigate()
     const [commentsData, setCommentsData] = useState(location.state.commentsData)
@@ -10,12 +12,13 @@ const ParentComments = () => {
     const commentRef = useRef()
 
     const addNewComment = () => {
+        console.log(context.commentsData)
         const comment = {
             name: commentRef.current.value,
             postId: location.state.el.id,
-            id: commentsData.length + 1,
+            id: context.commentsData.length + 1,
         }
-        commentsData.push(comment)
+        context.commentsData.push(comment)
         setCommentsData(commentsData)
         setAllCommentsCount(commentsData.length + 1)
         commentRef.current.value = ''
@@ -41,7 +44,7 @@ const ParentComments = () => {
                     <div className='pb-5'>
                         <h2 className='p-4'>Comments</h2>
                         {
-                            commentsData ? commentsData.map((comment) => {
+                            context.commentsData ? context.commentsData.map((comment) => {
                                 if (comment.postId === location.state.el.id){
                                     return (<div className='w-50 pt-3 ps-5 bg-light ,b-2' key={comment.id}>
                                     {comment.name}

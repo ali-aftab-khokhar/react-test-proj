@@ -1,14 +1,15 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import HeaderHomePage from '../Headers/HeaderHomePage'
 import LoginForm from './LoginForm'
 import SignUpForm from './SignUpForm'
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom'
+import ContextAPI from '../../Context/ContextAPI'
 
 const ParentLoginSignUp = (props) => {
-    const [postsData, setPostsData] = useState(props.postsData)
-    console.log(props.commentsData)
+    const context = useContext(ContextAPI)
+    console.log(context.usersData)
     const navigate = useNavigate()
     const [allUsers, setAllUsers] = useState([])
     const [isLogggedIn, setIsLoggedIn] = useState([])
@@ -22,6 +23,7 @@ const ParentLoginSignUp = (props) => {
         }
         fetchData()
     }, [])
+    useEffect(() => {}, [context.usersData])
     useEffect(() => {
         setAllUsers(allUsers)
     }, [allUsers])
@@ -38,6 +40,7 @@ const ParentLoginSignUp = (props) => {
                 return toast.error("Username already exists.")
             }
         })
+        context.usersData.push(user)
         allUsers.push(user)
         setAllUsers(allUsers)
         return toast.success("User Added")
