@@ -30,7 +30,6 @@ const ParentPost = () => {
     }
 
     const deleteThePost = (e) => {
-        console.log(e)
         let posts = allPosts.filter(post =>  post.id !== parseInt(e.target.value) )
         setAllPosts(posts)
     }
