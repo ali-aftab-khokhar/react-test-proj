@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { createContext } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import './App.css'
+import ParentComments from './Components/Comments/ParentComments';
+import ParentLoginSignUp from './Components/LoginSignUp/ParentLoginSignUp';
+import NotLoggedInPost from './Components/Posts/NotLoggedInPost';
+import ParentPost from './Components/Posts/ParentPost';
+import ContextState from './Context/ContextState';
+import useFetch from './useFetch';
 
+const BlogData = createContext()
 function App() {
+  const [postsData] = useFetch('https://jsonplaceholder.typicode.com/posts')
+  const [commentsData] = useFetch('https://jsonplaceholder.typicode.com/comments')
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="main">
+      <ContextState>
+        <Router>
+          <Routes>
+            <Route exact path='/' element={<ParentLoginSignUp postsData={postsData} commentsData={commentsData} />} />
+            <Route exact path='/posts' element={ <ParentPost />} />
+            <Route exact path='/posts/notloggedin' element={ <NotLoggedInPost />} />
+            <Route exact path='/posts/:id/comments' element={<ParentComments />} />
+          </Routes>
+        </Router>
+      </ContextState> 
     </div>
   );
 }
 
 export default App;
+export { BlogData };
