@@ -44,7 +44,7 @@ const PostCards = (props) => {
     return (
         <div className='justify-content-center'>
             {
-                context.postsData.reverse().map((post) => {
+                context.postsData.map((post) => {
                     return (
                         <div className="card mb-3" key={post.id}>
                             <div className="card-body">

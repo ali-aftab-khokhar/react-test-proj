@@ -2,6 +2,7 @@ import React, { useRef, useState, useContext } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import HeaderLoggedIn from '../Headers/HeaderLoggedIn'
 import ContextAPI from '../../Context/ContextAPI'
+import constants from '../../Constants'
 
 const ParentComments = () => {
     const context = useContext(ContextAPI)
@@ -31,7 +32,7 @@ const ParentComments = () => {
         <div>
             <HeaderLoggedIn header="Comments" />
             <div className='p-4'>
-                <button className='btn btn-dark' onClick={goBackHandler}>Go Back</button>
+                <button className='btn btn-dark' onClick={goBackHandler}>{constants.go_back}</button>
             </div>
             <div>
                 <div className="card mb-3">
@@ -41,26 +42,24 @@ const ParentComments = () => {
                         <p className="card-text">{location.state.el.body}</p>
                     </div>
                     <div className='pb-5'>
-                        <h2 className='p-4'>Comments</h2>
+                        <h2 className='p-4'>{constants.comments}</h2>
                         {
                             context.commentsData ? context.commentsData.map((comment) => {
-                                if (comment.postId === location.state.el.id){
+                                if (comment.postId === location.state.el.id) {
                                     return (<div className='w-50 pt-3 ps-5 bg-light ,b-2' key={comment.id}>
-                                    {comment.name}
-                                </div>)
-                                }   
-                            }) : <div className='ps-5'> Loading... </div>
+                                        {comment.name}
+                                    </div>)
+                                }
+                            }) : <div className='ps-5'> {constants.loading} </div>
                         }
                     </div>
                     {
                         location.state.el ?
-                            <div className='mb-4 w-75 ms-4'>
-                                <div className="w-75 mb-3 ms-4">
-                                    <div className="input-group">
-                                        <input type="text" className="form-control" ref={commentRef} name="name" placeholder="Add new comment" />
-                                        <div className="input-group-prepend">
-                                            <button className="input-group-text" id="inputGroupPrepend2" onClick={addNewComment}>Publish Comment</button>
-                                        </div>
+                            <div className='mb-4 w-75 ms-4 mb-3'>
+                                <div className="input-group">
+                                    <input type="text" className="form-control" ref={commentRef} name="name" placeholder="Add new comment" />
+                                    <div className="input-group-prepend">
+                                        <button className="input-group-text" id="inputGroupPrepend2" onClick={addNewComment}>{constants.publish_the_comment}</button>
                                     </div>
                                 </div>
                             </div>
