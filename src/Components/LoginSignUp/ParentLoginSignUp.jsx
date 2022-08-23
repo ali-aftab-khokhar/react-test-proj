@@ -1,4 +1,3 @@
-import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
 import HeaderHomePage from '../Headers/HeaderHomePage'
 import LoginForm from './LoginForm'

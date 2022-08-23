@@ -9,7 +9,6 @@ const ParentComments = () => {
     const location = useLocation()
     const navigate = useNavigate()
     const [commentsData, setCommentsData] = useState(location.state.commentsData)
-    const [allCommentsCount, setAllCommentsCount] = useState()
     const commentRef = useRef()
 
     const addNewComment = () => {
@@ -20,7 +19,6 @@ const ParentComments = () => {
         }
         context.commentsData.push(comment)
         setCommentsData(commentsData)
-        setAllCommentsCount(commentsData.length + 1)
         commentRef.current.value = ''
     }
 
