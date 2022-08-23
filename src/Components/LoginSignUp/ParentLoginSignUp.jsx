@@ -10,14 +10,16 @@ import constants from '../../Constants'
 const ParentLoginSignUp = (props) => {
     const context = useContext(ContextAPI)
     const navigate = useNavigate()
+    const [allUsers, setAllUsers] = useState([])
+
     useEffect(() => {
         setAllUsers(context.usersData)
     }, [context.usersData])
-    const [allUsers, setAllUsers] = useState([])
-    useEffect(() => { }, [context.usersData])
+
     useEffect(() => {
         setAllUsers(allUsers)
     }, [allUsers])
+    
     allUsers.map((elem) => elem.password = "user")
 
     const addNewUser = (user) => {
@@ -27,7 +29,6 @@ const ParentLoginSignUp = (props) => {
                 return toast.error(constants.username_already_exists)
             }
         })
-        // setAllUsers(...context.usersData, user)
         context.usersData.push(user)
         toast.success(constants.user_added)
     }
@@ -43,8 +44,6 @@ const ParentLoginSignUp = (props) => {
             toast.error(constants.username_password_error)
         }
     }
-
-    // useEffect(() => {}, [isLoggedIn])
 
     return (
         <div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import constants from '../../Constants'
 import ContextAPI from '../../Context/ContextAPI'
 import EditPost from './EditPost'
 
@@ -67,7 +68,7 @@ const PostCards = (props) => {
                             }
                         </div>
                     )
-                }) : <div>Data Loading Failed</div>
+                }) : <div>{constants.loading}</div>
             }
         </div>
     )

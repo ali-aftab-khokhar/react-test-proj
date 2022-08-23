@@ -12,7 +12,10 @@ const constants = {
     loading: "Loading ...",
     comments: "Comments",
     publish_the_comment: "Publish The Comment",
-    login: "Login"
+    login: "Login",
+    edit_done: "Edit Done",
+    edit_post: "Edit Post",
+    data_loading_failed: "Data Loading Failed"
 }
 
 export default constants
