@@ -5,7 +5,8 @@ const LoginForm = (props) => {
     const usernameRef = useRef(null)
     const passwordRef = useRef(null)
 
-    const onSubmit = () => {
+    const onSubmit = (e) => {
+        e.preventDefault()
         props.existingUserOrNot(usernameRef.current.value, passwordRef.current.value)
     }
 

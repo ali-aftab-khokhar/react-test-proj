@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ContextAPI from '../../Context/ContextAPI'
+import EditPost from './EditPost'
 
 const PostCards = (props) => {
     const context = useContext(ContextAPI)
@@ -24,27 +25,26 @@ const PostCards = (props) => {
         setEditToggle(!editToggle)
         setActivePostID(post)
     }
-    const saveEdits = (e) => {
+    const saveEdits = (id, title, body) => {
         allPosts.forEach((post) => {
-            if(post.id === parseInt(e.target.value)){
-                post.title = postTitleRef.current.value
-                post.body = postBodyRef.current.value
+            if (post.id === parseInt(id)) {
+                post.title = title
+                post.body = body
             }
         })
         setAllPosts(allPosts)
         setEditToggle(!editToggle)
     }
-    useEffect(() => {}, [activePostID])
+    useEffect(() => { }, [activePostID])
     useEffect(() => {
         setAllPosts(props.allPosts)
     })
-    useEffect(() => {}, [context.postsData])
-
+    useEffect(() => { }, [context.postsData])
 
     return (
         <div className='justify-content-center'>
             {
-                context.postsData.map((post) => {
+                context.postsData ? context.postsData.map((post) => {
                     return (
                         <div className="card mb-3" key={post.id}>
                             <div className="card-body">
@@ -53,7 +53,7 @@ const PostCards = (props) => {
                                 <button className="btn btn-dark" value={post.id} onClick={openComments}>Comments</button>
                             </div>
                             {
-                                props.currentUser.id === post.userId ?
+                                context.isLoggedIn && props.currentUser.id === post.userId && context.isLoggedIn ?
                                     <div className='text-end p-3'>
                                         <button className='btn btn-warning' value={post.id} onClick={editHandler}>Edit</button>
                                         <button className='btn btn-danger ms-2' value={post.id} onClick={props.deleteThePost}>Delete</button>
@@ -61,24 +61,13 @@ const PostCards = (props) => {
                                     : null
                             }
                             {
-                                props.currentUser.id === post.userId && parseInt(activePostID) === parseInt(post.id) && editToggle ?
-                                    <div className='w-75 justify-content-center align-items-center ms-5 mt-5'>
-                                        <div className='mb-3 ms-3 font-weight-bold'>Edit Post</div>
-                                        <div className="form-group mb-4">
-                                            <input type="text" className="form-control ms-3" ref={postTitleRef} defaultValue={post.title} name="title" placeholder="Title" />
-                                        </div>
-                                        <div className="form-group mb-4">
-                                            <textarea rows='4' type="text" className="form-control ms-3" ref={postBodyRef} defaultValue={post.body} name="body" placeholder="Body" />
-                                        </div>
-                                        <button className='btn ms-3 mb-4 btn-outline-dark' value={post.id} onClick={saveEdits}>
-                                            Edit Done
-                                        </button>
-                                    </div>
+                                context.isLoggedIn && props.currentUser.id === post.userId && parseInt(activePostID) === parseInt(post.id) && editToggle ?
+                                    <EditPost saveEdits={saveEdits} title={post.title} body={post.body} id={post.id} />
                                     : null
                             }
                         </div>
                     )
-                })
+                }) : <div>Data Loading Failed</div>
             }
         </div>
     )

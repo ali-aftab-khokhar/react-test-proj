@@ -1,28 +1,14 @@
 import React, { useRef, useState, useContext } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import HeaderLoggedIn from '../Headers/HeaderLoggedIn'
 import ContextAPI from '../../Context/ContextAPI'
 import constants from '../../Constants'
+import NotLoggedInHeader from '../Headers/NotLoggedInHeader'
 
-const ParentComments = () => {
+const NotLoggedInComments = () => {
     const context = useContext(ContextAPI)
     const location = useLocation()
     const navigate = useNavigate()
     const [commentsData, setCommentsData] = useState(location.state.commentsData)
-    const [allCommentsCount, setAllCommentsCount] = useState(commentsData.length)
-    const commentRef = useRef()
-
-    const addNewComment = () => {
-        const comment = {
-            name: commentRef.current.value,
-            postId: location.state.el.id,
-            id: allCommentsCount.length + 1,
-        }
-        context.commentsData.push(comment)
-        setCommentsData(commentsData)
-        setAllCommentsCount(commentsData.length + 1)
-        commentRef.current.value = ''
-    }
 
     const goBackHandler = () => {
         navigate(-1)
@@ -30,7 +16,9 @@ const ParentComments = () => {
 
     return (
         <div>
-            <HeaderLoggedIn header="Comments" />
+            <div className='mb-5'>
+                <NotLoggedInHeader header="You are not logged In" />
+            </div>
             <div className='p-4'>
                 <button className='btn btn-dark' onClick={goBackHandler}>{constants.go_back}</button>
             </div>
@@ -53,22 +41,10 @@ const ParentComments = () => {
                             }) : <div className='ps-5'> {constants.loading} </div>
                         }
                     </div>
-                    {
-                        location.state.el && context.isLoggedIn.id ?
-                            <div className='mb-4 w-75 ms-4 mb-3'>
-                                <div className="input-group">
-                                    <input type="text" className="form-control" ref={commentRef} name="name" placeholder="Add new comment" />
-                                    <div className="input-group-prepend">
-                                        <button className="input-group-text" id="inputGroupPrepend2" onClick={addNewComment}>{constants.publish_the_comment}</button>
-                                    </div>
-                                </div>
-                            </div>
-                            : null
-                    }
                 </div>
             </div>
         </div>
     )
 }
 
-export default ParentComments
+export default NotLoggedInComments

@@ -11,7 +11,8 @@ const constants = {
     new_post: "New Post",
     loading: "Loading ...",
     comments: "Comments",
-    publish_the_comment: "Publish The Comment"
+    publish_the_comment: "Publish The Comment",
+    login: "Login"
 }
 
 export default constants

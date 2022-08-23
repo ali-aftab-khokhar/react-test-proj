@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css'
 import ParentComments from './Components/Comments/ParentComments';
 import ParentLoginSignUp from './Components/LoginSignUp/ParentLoginSignUp';
+import NotLoggedInPost from './Components/Posts/NotLoggedInPost';
 import ParentPost from './Components/Posts/ParentPost';
 import ContextState from './Context/ContextState';
 import useFetch from './useFetch';
@@ -17,7 +18,8 @@ function App() {
         <Router>
           <Routes>
             <Route exact path='/' element={<ParentLoginSignUp postsData={postsData} commentsData={commentsData} />} />
-            <Route exact path='/posts' element={<ParentPost />} />
+            <Route exact path='/posts' element={ <ParentPost />} />
+            <Route exact path='/posts/notloggedin' element={ <NotLoggedInPost />} />
             <Route exact path='/posts/:id/comments' element={<ParentComments />} />
           </Routes>
         </Router>

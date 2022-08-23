@@ -6,8 +6,13 @@ import ContextAPI from '../../Context/ContextAPI'
 import constants from '../../Constants'
 
 const ParentPost = () => {
-    const context = useContext(ContextAPI)
     const navigate = useNavigate()
+    const context = useContext(ContextAPI)
+    useEffect(() => {
+        if (!context.isLoggedIn.id) {
+            navigate('/posts/notloggedin')
+        }
+    }, [context.isLoggedIn, navigate])
     const location = useLocation()
     const [postDelete, setPostDelete] = useState(false)
     const [addNewPost, setAddNewPost] = useState(false)
@@ -31,12 +36,14 @@ const ParentPost = () => {
     }
 
     const deleteThePost = (e) => {
-        const post = context.postsData.filter(post =>  post.id !== parseInt(e.target.value) )
+        const post = context.postsData.filter(post => post.id !== parseInt(e.target.value))
+        context.commentsData.filter((comment) => comment.postId !== post.id)
         context.postsData = post
         setPostDelete(!postDelete)
+
     }
 
-    useEffect(() => {}, [context.postsData])
+    useEffect(() => { }, [context.postsData])
 
     const logoutHandle = () => {
         navigate("/")
@@ -47,15 +54,17 @@ const ParentPost = () => {
             <div>
                 <HeaderLoggedIn header="Posts" />
             </div>
-            <div className='p-4'>
-                <button className='btn btn-dark' onClick={logoutHandle}>{constants.logout}</button>
-            </div>
-            <div className='ms-2'>
-                <button className='btn ms-5 btn-outline-dark mt-5 pt-3 ps-5 pe-5' onClick={openOrCloseModal} >
-                    {
-                        !addNewPost ? <p>{constants.create_new_post}</p> : <p>{constants.close_the_dialog}</p>
-                    }
-                </button>
+            <div>
+                <div className='p-4'>
+                    <button className='btn btn-dark' onClick={logoutHandle}>{constants.logout}</button>
+                </div>
+                <div className='ms-2'>
+                    <button className='btn ms-5 btn-outline-dark mt-5 pt-3 ps-5 pe-5' onClick={openOrCloseModal} >
+                        {
+                            !addNewPost ? <p>{constants.create_new_post}</p> : <p>{constants.close_the_dialog}</p>
+                        }
+                    </button>
+                </div>
             </div>
 
             {
@@ -76,7 +85,11 @@ const ParentPost = () => {
             }
 
             <div className='w-100 p-5 d-flex align-items-center justify-content-center'>
-                <PostCards allPosts={context.postsData} currentUser={context.isLoggedIn} deleteThePost={deleteThePost} commentsData={location.state.commentsData}/>
+                {
+                    context.commentsData ?
+                        <PostCards allPosts={context.postsData} currentUser={context.isLoggedIn} deleteThePost={deleteThePost} commentsData={location.state.commentsData} />
+                        : null
+                }
             </div>
         </div>
     )
