@@ -1,4 +1,5 @@
 import React, { useRef } from 'react'
+import constants from '../../Constants'
 import Labels from './Labels'
 
 const LoginForm = (props) => {
@@ -18,15 +19,15 @@ const LoginForm = (props) => {
             <div>
                 <form onSubmit={onSubmit}>
                     <div className="form-group mb-4">
-                        <Labels name="Username" />
-                        <input type="text" className="form-control" ref={usernameRef} name="username" placeholder="Username" />
+                        <Labels name={constants.username} />
+                        <input type="text" className="form-control" ref={usernameRef} name="username" placeholder={constants.username} />
                     </div>
                     <div className="form-group mb-4">
-                        <Labels name="Password" />
-                        <input type="password" className="form-control" name="password" placeholder="Password" ref={passwordRef} />
+                        <Labels name={constants.password} />
+                        <input type="password" className="form-control" name="password" placeholder={constants.password} ref={passwordRef} />
                     </div>
                     <div className="mb-4 mt-5 text-center ">
-                        <input type="submit" className='p-2 w-50 btn btn-outline-dark' value="Log In" />
+                        <input type="submit" className='p-2 w-50 btn btn-outline-dark' value={constants.login} />
                     </div>
                 </form>
             </div>

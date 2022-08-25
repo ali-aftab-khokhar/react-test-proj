@@ -15,7 +15,13 @@ const constants = {
     login: "Login",
     edit_done: "Edit Done",
     edit_post: "Edit Post",
-    data_loading_failed: "Data Loading Failed"
+    data_loading_failed: "Data Loading Failed",
+    username: "Username",
+    full_name: "Full Name",
+    password: "Password",
+    enter_full_name: "Enter Full Name",
+    enter_username: "Enter Username",
+    enter_password: "Enter Password"
 }
 
 export default constants
