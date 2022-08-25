@@ -17,7 +17,7 @@ const NotLoggedInComments = () => {
     return (
         <div>
             <div className='mb-5'>
-                <NotLoggedInHeader header="You are not logged In" />
+                <NotLoggedInHeader header={constants.not_logged_in} />
             </div>
             <div className='p-4'>
                 <button className='btn btn-dark' onClick={goBackHandler}>{constants.go_back}</button>

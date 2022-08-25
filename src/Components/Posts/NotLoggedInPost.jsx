@@ -15,7 +15,7 @@ const NotLoggedInPost = () => {
   return (
     <div>
       <div className='mb-5'>
-        <NotLoggedInHeader header="You are not logged In" />
+        <NotLoggedInHeader header={constants.not_logged_in}/>
       </div>
       <div className='ps-4 mb-5'>
         <button className='btn btn-dark' onClick={login}>{constants.login}</button>

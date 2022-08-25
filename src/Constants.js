@@ -21,7 +21,8 @@ const constants = {
     password: "Password",
     enter_full_name: "Enter Full Name",
     enter_username: "Enter Username",
-    enter_password: "Enter Password"
+    enter_password: "Enter Password",
+    not_logged_in: "You are not logged In"
 }
 
 export default constants
