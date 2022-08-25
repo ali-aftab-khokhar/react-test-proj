@@ -52,7 +52,7 @@ const ParentPost = () => {
     return (
         <div className=''>
             <div>
-                <HeaderLoggedIn header="Posts" />
+                <HeaderLoggedIn header={constants.posts} />
             </div>
             <div>
                 <div className='p-4'>

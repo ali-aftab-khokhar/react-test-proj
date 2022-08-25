@@ -25,7 +25,7 @@ const NotLoggedInPost = () => {
           <div>
             <NotLoggedInPostCards postsData={context.postsData} commentsData={context.commentsData} />
           </div>
-          : <div>Loading...</div>
+          : <div>{constants.loading}</div>
       }
     </div>
   )

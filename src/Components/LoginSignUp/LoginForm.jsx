@@ -14,7 +14,7 @@ const LoginForm = (props) => {
     return (
         <div className='p-5 ms-5 bg-light w-75'>
             <div className='text-center mb-5'>
-                Login To Your Account
+                {constants.login_to_your_account}
             </div>
             <div>
                 <form onSubmit={onSubmit}>

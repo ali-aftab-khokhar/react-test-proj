@@ -24,7 +24,7 @@ const SignUpForm = (props) => {
     return (
         <div className='p-5 bg-light w-75 me-5'>
             <div className='mb-5 text-center '>
-                Are you new? Join us today.
+                {constants.join_us}
             </div>
             <div>
                 <form onSubmit={onSubmit}>
@@ -41,7 +41,7 @@ const SignUpForm = (props) => {
                         <input type="password" className="form-control" placeholder={constants.enter_password} ref={passwordRef} />
                     </div>
                     <div className="mb-4 mt-5 text-center ">
-                        <input value="Sign Up" type="submit" className='p-2 w-50 btn btn-outline-dark' />
+                        <input value={constants.sign_up} type="submit" className='p-2 w-50 btn btn-outline-dark' />
                     </div>
                 </form>
             </div>

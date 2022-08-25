@@ -30,13 +30,13 @@ const ParentComments = () => {
 
     return (
         <div>
-            <HeaderLoggedIn header="Comments" />
+            <HeaderLoggedIn header={constants.comments} />
             <div className='p-4'>
                 <button className='btn btn-dark' onClick={goBackHandler}>{constants.go_back}</button>
             </div>
             <div>
                 <div className="card mb-3">
-                    <h1 className='p-3'>Post</h1>
+                    <h1 className='p-3'>{constants.post}</h1>
                     <div className="card-body pb-5">
                         <h5 className="card-title">{location.state.el.title}</h5>
                         <p className="card-text">{location.state.el.body}</p>
@@ -57,7 +57,7 @@ const ParentComments = () => {
                         location.state.el && context.isLoggedIn.id ?
                             <div className='mb-4 w-75 ms-4 mb-3'>
                                 <div className="input-group">
-                                    <input type="text" className="form-control" ref={commentRef} name="name" placeholder="Add new comment" />
+                                    <input type="text" className="form-control" ref={commentRef} name="name" placeholder={constants.add_new_comment} />
                                     <div className="input-group-prepend">
                                         <button className="input-group-text" id="inputGroupPrepend2" onClick={addNewComment}>{constants.publish_the_comment}</button>
                                     </div>

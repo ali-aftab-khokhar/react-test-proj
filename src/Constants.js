@@ -22,7 +22,17 @@ const constants = {
     enter_full_name: "Enter Full Name",
     enter_username: "Enter Username",
     enter_password: "Enter Password",
-    not_logged_in: "You are not logged In"
+    not_logged_in: "You are not logged In",
+    edit: "Edit",
+    delete: "Delete",
+    post: "Post",
+    title: "Title",
+    body: "Body",
+    sign_up: "Sign Up",
+    login_to_your_account: "Login To Your Account",
+    join_us: "Are you new? Join us today.",
+    blog_app: "BLOG APP",
+    add_new_comment: "Add new comment"
 }
 
 export default constants

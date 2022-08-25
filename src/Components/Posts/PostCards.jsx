@@ -36,11 +36,9 @@ const PostCards = (props) => {
         setAllPosts(allPosts)
         setEditToggle(!editToggle)
     }
-    useEffect(() => { }, [activePostID])
     useEffect(() => {
         setAllPosts(props.allPosts)
-    })
-    useEffect(() => { }, [context.postsData])
+    }, [])
 
     return (
         <div className='justify-content-center'>
@@ -51,13 +49,13 @@ const PostCards = (props) => {
                             <div className="card-body">
                                 <h5 className="card-title">{post.title}</h5>
                                 <p className="card-text">{post.body}</p>
-                                <button className="btn btn-dark" value={post.id} onClick={openComments}>Comments</button>
+                                <button className="btn btn-dark" value={post.id} onClick={openComments}>{constants.comments}</button>
                             </div>
                             {
                                 context.isLoggedIn && props.currentUser.id === post.userId && context.isLoggedIn ?
                                     <div className='text-end p-3'>
-                                        <button className='btn btn-warning' value={post.id} onClick={editHandler}>Edit</button>
-                                        <button className='btn btn-danger ms-2' value={post.id} onClick={props.deleteThePost}>Delete</button>
+                                        <button className='btn btn-warning' value={post.id} onClick={editHandler}>{constants.edit}</button>
+                                        <button className='btn btn-danger ms-2' value={post.id} onClick={props.deleteThePost}>{constants.delete}</button>
                                     </div>
                                     : null
                             }

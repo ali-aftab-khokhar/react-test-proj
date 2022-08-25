@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import constants from '../../Constants'
 
 const NotLoggedInPostCards = (props) => {
     const navigate = useNavigate()
@@ -20,7 +21,7 @@ const NotLoggedInPostCards = (props) => {
                             <div className="card-body">
                                 <h5 className="card-title">{post.title}</h5>
                                 <p className="card-text">{post.body}</p>
-                                <button className="btn btn-dark" value={post.id} onClick={openComments}>Comments</button>
+                                <button className="btn btn-dark" value={post.id} onClick={openComments}>{constants.comments}</button>
                             </div>
 
                         </div>
